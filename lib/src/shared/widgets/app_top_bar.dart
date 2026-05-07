@@ -12,6 +12,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
     this.centerTitle = true,
     this.onPressed,
     this.isTransparent = false,
+    this.isHome = false,
   });
 
   final String title;
@@ -20,6 +21,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onPressed;
   final bool? centerTitle;
   final bool isTransparent;
+  final bool isHome;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,6 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       centerTitle: centerTitle,
-      elevation: 0,
-      toolbarHeight: 120.h,
       backgroundColor: isTransparent
           ? Colors.transparent
           : theme.colorScheme.surfaceContainerHighest,
@@ -49,11 +49,11 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
       title: titleWidget ??
           Text(
             title,
-            style: context.currentRoute == AppRoutes.home
+            style: isHome
                 ? theme.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                   )
-                : theme.appBarTheme.titleTextStyle,
+                : null,
           ),
       leadingWidth: 40.w,
       leading: !canPop
@@ -75,5 +75,5 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(isHome ? 100.h : kToolbarHeight);
 }
