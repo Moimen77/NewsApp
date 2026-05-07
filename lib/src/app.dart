@@ -13,7 +13,7 @@ class App extends StatelessWidget {
     return MaterialApp.router(
       title: 'NewsApp',
       debugShowCheckedModeBanner: false,
-      theme: buildLightTheme(primaryColorHex: '#D9D9D9'),
+      theme: buildLightTheme(primaryColorHex: '#e9eefa'),
       routerConfig: appRouter,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

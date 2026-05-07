@@ -1,3 +1,4 @@
+import 'package:newsapp/generated/locale_keys.g.dart';
 import 'package:newsapp/src/imports/core_imports.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,13 +13,17 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppTopBar(
-        title: 'home.home_title'.tr(),
+        title: LocaleKeys.home_home_title.tr(),
+        isHome: true,
         actions: [
           IconButton(
             onPressed: () {
               // For template purpose:
             },
-            icon: const Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: colorScheme.onPrimary,
+            ),
           ),
         ],
         centerTitle: false,

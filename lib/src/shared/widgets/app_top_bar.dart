@@ -42,9 +42,9 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       centerTitle: centerTitle,
-      backgroundColor: isTransparent
-          ? Colors.transparent
-          : theme.colorScheme.surfaceContainerHighest,
+      toolbarHeight: isHome ? 100.h : kToolbarHeight,
+      backgroundColor:
+          isTransparent ? Colors.transparent : theme.colorScheme.primary,
       shadowColor: Colors.transparent,
       title: titleWidget ??
           Text(
@@ -52,6 +52,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
             style: isHome
                 ? theme.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.w600,
+                    color: theme.colorScheme.onPrimary,
                   )
                 : null,
           ),
@@ -65,7 +66,7 @@ class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
                 child: Icon(
                   Icons.arrow_back,
                   color: theme.appBarTheme.iconTheme?.color ??
-                      theme.colorScheme.onSurface,
+                      theme.colorScheme.onPrimary,
                 ),
               ),
             ),
