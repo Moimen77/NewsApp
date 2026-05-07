@@ -1,3 +1,5 @@
+import 'package:newsapp/generated/codegen_loader.g.dart';
+
 import '../../imports/core_imports.dart';
 
 /// A wrapper to initialize [EasyLocalization] with supported locales.
@@ -18,6 +20,7 @@ class LocalizationWrapper extends StatelessWidget {
       ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
+      assetLoader: const CodegenLoader(),
       child: child,
     );
   }
