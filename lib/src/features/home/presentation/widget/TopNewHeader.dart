@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:newsapp/src/extensions/extensions.dart';
+// ignore_for_file: file_names
+
+import 'package:newsapp/src/features/home/data/topHeadLineModel.dart';
+import 'package:newsapp/src/imports/core_imports.dart';
 
 class TopNewHeader extends StatelessWidget {
-  const TopNewHeader({super.key});
+  const TopNewHeader({super.key, required this.topHeadlines});
+  final TopHeadlines topHeadlines;
 
   @override
   Widget build(BuildContext context) {
+    final TopNews = topHeadlines.articles?.firstOrNull;
     final theme = context.theme;
     final colorScheme = theme.colorScheme;
     return Column(
@@ -14,16 +18,21 @@ class TopNewHeader extends StatelessWidget {
         ClipRRect(
           borderRadius:
               BorderRadius.circular(context.designTokens.borderRadiusMedium),
-          child: Image.asset(
-            'assets/images/120776.webp',
-            fit: BoxFit.cover,
-          ),
+          child: TopNews?.urlToImage != null
+              ? AppCachedImage(
+                  imageUrl: TopNews!.urlToImage!,
+                  fit: BoxFit.cover,
+                )
+              : Image.asset(
+                  'assets/images/120776.webp',
+                  fit: BoxFit.cover,
+                ),
         ),
         8.kH,
-        Text('Apple Unveils Revolutionary AI Features',
-            style: theme.textTheme.titleMedium),
+        Text(TopNews?.title ?? '', style: theme.textTheme.titleMedium),
         4.kH,
-        Text('Moimen Adel . May 20, 2024',
+        Text(
+            '${TopNews?.author ?? 'N/A'}  ${TopNews!.publishedAt?.toLocal().timeAgo() ?? 'N/A'}',
             style: theme.textTheme.bodySmall
                 ?.copyWith(color: colorScheme.onSurfaceVariant)),
       ],
