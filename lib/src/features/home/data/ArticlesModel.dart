@@ -32,6 +32,19 @@ class Articles {
         : null;
     content = json['content'];
   }
+  factory Articles.fake() {
+    return Articles(
+      source: Source.fake(),
+      author: 'Loading Author',
+      title: 'Loading News Title',
+      description:
+          'Loading description Loading description Loading description',
+      url: '',
+      urlToImage: '',
+      publishedAt: DateTime.now(),
+      content: 'Loading content',
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

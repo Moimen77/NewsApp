@@ -1,8 +1,8 @@
 import '../../imports/imports.dart';
-
+import 'image_error_widget.dart';
 
 /// A multi-purpose image widget that handles network images, SVGs, and local assets.
-/// 
+///
 /// Automatically uses [CachedNetworkImage] if enabled for web images.
 /// Automatically uses [SvgPicture] if enabled for SVG files.
 class CommonImage extends StatelessWidget {
@@ -51,7 +51,8 @@ class CommonImage extends StatelessWidget {
         width: adjustedWidth,
         height: adjustedHeight,
         fit: fit,
-        colorFilter: color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
+        colorFilter:
+            color != null ? ColorFilter.mode(color!, BlendMode.srcIn) : null,
       );
     } else {
       image = Image.asset(
@@ -60,7 +61,8 @@ class CommonImage extends StatelessWidget {
         height: adjustedHeight,
         fit: fit,
         color: color,
-        errorBuilder: (context, error, stackTrace) => errorWidget ?? _buildDefaultErrorWidget(),
+        errorBuilder: (context, error, stackTrace) =>
+            errorWidget ?? _buildDefaultErrorWidget(context),
       );
     }
 
@@ -74,16 +76,11 @@ class CommonImage extends StatelessWidget {
     return image;
   }
 
-  Widget _buildDefaultErrorWidget() {
-    return Container(
+  Widget _buildDefaultErrorWidget(BuildContext context) {
+    return ImageErrorWidget(
       width: width,
       height: height,
-      color: Colors.grey[200],
-      child:           const Icon(
-            Icons.error_outline,
-            color: Colors.grey,
-          )
-        ,
+      borderRadius: borderRadius,
     );
   }
 }

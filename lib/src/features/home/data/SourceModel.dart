@@ -8,6 +8,12 @@ class Source {
     id = json['id'];
     name = json['name'];
   }
+  factory Source.fake() {
+    return Source(
+      id: '1',
+      name: 'Loading Source',
+    );
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};

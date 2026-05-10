@@ -18,6 +18,18 @@ class TopHeadlines {
     }
   }
 
+  /// Fake data for skeleton loading
+  static TopHeadlines fake() {
+    return TopHeadlines(
+      status: 'ok',
+      totalResults: 5,
+      articles: List.generate(
+        5,
+        (index) => Articles.fake(),
+      ),
+    );
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;

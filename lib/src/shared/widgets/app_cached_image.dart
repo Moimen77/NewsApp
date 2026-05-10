@@ -1,9 +1,9 @@
 import '../../imports/core_imports.dart';
 import '../../imports/packages_imports.dart';
-
+import 'image_error_widget.dart';
 
 /// A premium, highly customizable wrapper around [CachedNetworkImage].
-/// 
+///
 /// This widget provides smooth transitions, specialized error handling,
 /// and integrates with the project's design system.
 class AppCachedImage extends StatelessWidget {
@@ -80,8 +80,10 @@ class AppCachedImage extends StatelessWidget {
       colorBlendMode: colorBlendMode,
       alignment: alignment,
       fadeInDuration: fadeInDuration ?? const Duration(milliseconds: 500),
-      placeholder: (context, url) => placeholder ?? _buildDefaultPlaceholder(context),
-      errorWidget: (context, url, error) => errorWidget ?? _buildDefaultErrorWidget(context),
+      placeholder: (context, url) =>
+          placeholder ?? _buildDefaultPlaceholder(context),
+      errorWidget: (context, url, error) =>
+          errorWidget ?? _buildDefaultErrorWidget(context),
     );
 
     if (borderRadius != null) {
@@ -115,7 +117,8 @@ class AppCachedImage extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      color: context.theme.colorScheme.surfaceContainerHighest .withValues(alpha: 0.9),
+      color: context.theme.colorScheme.surfaceContainerHighest
+          .withValues(alpha: 0.9),
       child: const Center(
         child: CircularProgressIndicator(strokeWidth: 2),
       ),
@@ -123,17 +126,10 @@ class AppCachedImage extends StatelessWidget {
   }
 
   Widget _buildDefaultErrorWidget(BuildContext context) {
-    return Container(
+    return ImageErrorWidget(
       width: width,
       height: height,
-      color: context.theme.colorScheme.errorContainer .withValues(alpha: 0.9),
-      child: Center(
-        child:           Icon(
-            Icons.broken_image_outlined,
-            color: context.theme.colorScheme.error,
-          )
-        ,
-      ),
+      borderRadius: borderRadius,
     );
   }
 }

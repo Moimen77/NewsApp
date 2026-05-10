@@ -1,8 +1,6 @@
 import 'package:newsapp/generated/locale_keys.g.dart';
 import 'package:newsapp/src/features/home/data/topHeadLineModel.dart';
-import 'package:newsapp/src/features/home/presentation/widget/ListCategoryFilters.dart';
-import 'package:newsapp/src/features/home/presentation/widget/NewCard.dart';
-import 'package:newsapp/src/features/home/presentation/widget/TopNewHeader.dart';
+import 'package:newsapp/src/features/home/presentation/widget/HomePageForm.dart';
 import 'package:newsapp/src/features/home/services/HomePageservices.dart';
 import 'package:newsapp/src/imports/core_imports.dart';
 
@@ -72,7 +70,15 @@ class _HomePageState extends State<HomePage> {
           centerTitle: false,
         ),
         body: switch (status) {
-          AppStatus.initial || AppStatus.loading => const AppLoading(),
+          AppStatus.initial || AppStatus.loading => SessionListenerWrapper(
+              child: SkeletonWrapper(
+                isLoading: status == AppStatus.loading,
+                enabled: true,
+                child: HomePageForm(
+                  topHeadlines: topHeadlines ?? TopHeadlines.fake(),
+                ),
+              ),
+            ),
           AppStatus.success => SafeArea(
               child: (topHeadlines == null)
                   ? const AppErrorWidget()
@@ -80,34 +86,9 @@ class _HomePageState extends State<HomePage> {
                       ? const AppEmptyState(
                           title: 'No News found',
                         )
-                      : Column(
-                          children: [
-                            Column(
-                              children: [
-                                16.kH,
-                                const ListCategoryFilters(),
-                                24.kH,
-                                TopNewHeader(
-                                  topHeadlines: topHeadlines!,
-                                ),
-                                12.kH,
-                              ],
-                            ),
-                            ListView.builder(
-                              itemBuilder: (context, index) {
-                                if (index == 0) return const SizedBox();
-
-                                return NewsCard(
-                                  news: topHeadlines!.articles![index],
-                                ).paddingOnly(bottom: 24);
-                              },
-                              itemCount: topHeadlines?.articles?.length ?? 0,
-                            ).expanded,
-                          ],
-                        ).paddingSymmetric(
-                          horizontal: context.designTokens.paddingLarge,
-                        ),
-            ),
+                      : HomePageForm(
+                          topHeadlines: topHeadlines,
+                        )),
           AppStatus.failure => const AppErrorWidget(),
         });
   }
