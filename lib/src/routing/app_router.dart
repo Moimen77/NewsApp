@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:newsapp/src/features/searchScreen/presentation/screens/searchPage.dart';
 import 'package:newsapp/src/routing/global_navigator.dart';
 import 'package:newsapp/src/routing/app_routes.dart';
 
@@ -37,6 +38,13 @@ final GoRouter appRouter = GoRouter(
       path: AppRoutes.home,
       name: AppRoutes.home,
       builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: AppRoutes.search,
+      name: AppRoutes.search,
+      builder: (context, state) => Searchpage(
+        search: state.extra as String,
+      ),
     ),
   ],
 );
