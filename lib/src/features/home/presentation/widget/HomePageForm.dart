@@ -20,28 +20,36 @@ class HomePageForm extends StatelessWidget {
         else
           Column(
             children: [
-              16.kH,
-              const ListCategoryFilters(),
-              24.kH,
-              TopNewHeader(
-                topHeadlines: topHeadlines!,
+              Column(
+                children: [
+                  16.kH,
+                  const ListCategoryFilters(),
+                  24.kH,
+                ],
               ),
-              12.kH,
             ],
           ),
-        ListView.builder(
-          itemBuilder: (context, index) {
-            if (index == 0) return const SizedBox();
+        Column(
+          children: [
+            TopNewHeader(
+              topHeadlines: topHeadlines!,
+            ),
+            12.kH,
+            ListView.builder(
+              itemBuilder: (context, index) {
+                if (index == 0) return const SizedBox();
 
-            return NewsCard(
-              news: topHeadlines!.articles![index],
-            ).paddingOnly(bottom: 24);
-          },
-          itemCount: topHeadlines?.articles?.length ?? 0,
-        ).expanded,
+                return NewsCard(
+                  news: topHeadlines!.articles![index],
+                ).paddingOnly(bottom: 24);
+              },
+              itemCount: topHeadlines?.articles?.length ?? 0,
+            ).expanded,
+          ],
+        )
+            .paddingSymmetric(horizontal: context.designTokens.paddingMedium)
+            .expanded,
       ],
-    ).paddingSymmetric(
-      horizontal: context.designTokens.paddingLarge,
     );
   }
 }
