@@ -22,9 +22,9 @@ class TopHeadlines {
   static TopHeadlines fake() {
     return TopHeadlines(
       status: 'ok',
-      totalResults: 5,
+      totalResults: 8,
       articles: List.generate(
-        5,
+        12,
         (index) => Articles.fake(),
       ),
     );
