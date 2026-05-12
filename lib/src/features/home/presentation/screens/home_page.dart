@@ -3,6 +3,7 @@ import 'package:newsapp/src/features/home/data/topHeadLineModel.dart';
 import 'package:newsapp/src/features/home/presentation/widget/HomePageForm.dart';
 import 'package:newsapp/src/features/home/services/HomePageservices.dart';
 import 'package:newsapp/src/imports/core_imports.dart';
+import 'package:newsapp/src/imports/imports.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   TopHeadlines? topHeadlines;
 
   Failure? failure;
+  bool showtextfield = false;
 
   //getTopHeadlines
   Future<void> getTopHeadlines() async {
@@ -57,15 +59,52 @@ class _HomePageState extends State<HomePage> {
           title: LocaleKeys.home_home_title.tr(),
           isHome: true,
           actions: [
-            IconButton(
-              onPressed: () {
-                // For template purpose:
-              },
-              icon: Icon(
-                Icons.search,
-                color: colorScheme.onPrimary,
+            if (!showtextfield)
+              const SizedBox()
+            else
+              Padding(
+                padding: EdgeInsetsGeometry.directional(
+                  end: context.designTokens.paddingSmall,
+                ),
+                child: Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 172,
+                    maxHeight: 40,
+                  ),
+                  child: TextField(
+                    cursorHeight: 20,
+                    textInputAction: TextInputAction.search,
+                    decoration: const InputDecoration(
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 12,
+                      ),
+                      hintText: 'Search....',
+                    ),
+                    onSubmitted: (val) {
+                      GoRouter.of(context)
+                          .pushNamed(AppRoutes.search, extra: val);
+                      setState(() {
+                        showtextfield = !showtextfield;
+                      });
+                    },
+                  ),
+                ),
               ),
-            ),
+            if (showtextfield)
+              const SizedBox()
+            else
+              IconButton(
+                onPressed: () {
+                  setState(() {
+                    showtextfield = !showtextfield;
+                  });
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: colorScheme.onPrimary,
+                ),
+              ),
           ],
           centerTitle: false,
         ),
